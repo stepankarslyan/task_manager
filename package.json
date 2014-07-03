@@ -1,0 +1,9 @@
+{
+   "name": "task_manager",
+   "description": "an app for managing tasks",
+   "version": "0.0.1",
+   "private": true,
+   "dependencies": {
+      "express": "*"  
+   }
+}
