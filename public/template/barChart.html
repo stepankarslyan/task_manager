@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Task chart</title>
+</head>
+<body>
+<div id="chart"></div>
+  <script>
+  
+  var tasks = [{taskName: "test1", duration: "5 minutes", startDate: "28-08-2014", end: "30-08-2014"}, 
+    {taskName: "test2", duration: "1 hour", startDate: "28-08-2014", end: "20-09-2014"},
+    {taskName: "test3", duration: "5 seconds", startDate: "01-08-2014", end: "11-08-2014"}];
+  
+  
+    var buildChart = function(x) {
+      var bars = d3.select("#chart")                  
+              .selectAll("div.bar")
+              .data(x)
+              .enter().append("div")
+              .attr("class","bar")
+                .style("width",function(d) {return d.duration.length * 10 + "px" })
+                .style("outline","0.5px solid grey") 
+                .text(function(d) { return d.duration; });
+                
+     
+  };
+  buildChart(tasks);
+  </script>
+</body>

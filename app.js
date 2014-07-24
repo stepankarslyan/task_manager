@@ -5,7 +5,8 @@ app.listen(2323);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/lib', express.static(__dirname + "/bower_components"));
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 var task = null;
 
@@ -18,6 +19,10 @@ app.post("/tasks/current", function(req, res) {
   task = req.body;
   if (task.endDate) task = null;
   console.log('task=' + task);
+  res.send(200);
+});
+
+app.get("/statistics", function(req, res) {
   res.send(200);
 });
 

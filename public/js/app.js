@@ -3,6 +3,6 @@ angular.module('TaskManager', ["ngRoute"]).config(['$routeProvider', function($r
   if (!path) path = '';
 	$routeProvider.
 		when('/start', {templateUrl: path + '/template/start.html', controller: 'taskController'}).
-		when('/stop', {templateUrl: path + '/template/stop.html', controller: 'taskController'}).
+		when('/stop', {templateUrl: path + '/template/stop.html', controller: 'taskController'})
 		otherwise({redirectTo: '/start'});
 }]);

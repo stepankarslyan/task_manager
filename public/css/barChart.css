@@ -1,0 +1,16 @@
+div.bar {
+  font: 10px sans-serif;
+  background-color: DarkRed;
+  text-align: right;
+  color: white;
+  padding: 3px;
+  margin: 1px;
+  height: 1.5em;
+}
+
+div.lables {
+  text-align: right;
+  font: 13px sans-serif;
+  color: black;
+  padding-right: 1px;
+}

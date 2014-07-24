@@ -11,7 +11,7 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   };
 
   $.ajax({
-    url: "/wp-content/plugins/taskService/taskService.php",
+    url: "/wp-content/plugins/task_service_plugin/taskService.php",
     method: "GET",
     success: function(data) {
       var task = JSON.parse(data);
@@ -30,7 +30,7 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   
   $scope.start = function() {
     $.ajax({
-      url: "/wp-content/plugins/taskService/taskService.php",
+      url: "/wp-content/plugins/task_service_plugin/taskService.php",
       method: "POST",
       data: { 
         
@@ -56,7 +56,7 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   
   $scope.deleteTask = function() {
     $.ajax({
-      url: "/wp-content/plugins/taskService/taskService.php?task_id="  +  $scope.task.id,
+      url: "/wp-content/plugins/task_service_plugin/taskService.php?task_id="  +  $scope.task.id,
       method: "DELETE",
       
       success: function(data) {       
@@ -74,13 +74,13 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   $scope.stop = function() {
     var task = $scope.task;
     task.endDate = currentDate();
-    task.tokens = tokens; 
-	  task.calendarId; // your calendar id
+    task.tokens = "ya29.TADESwIF_diGCEkAAACfT4IrZnFEU1w85154N5xphVz1APSPAizLKMo7OUbsNDYTLYJieRw9BzrNRxjJPE79Y0MbWEQ4q0DC5FPliboHfQg9ZWHpvhrHQdz73kGedQ"; 
+	  task.calendarId = "geqtfulmg33djpa049401p07oo@group.calendar.google.com";
     
     //google calendar web service
     $.ajax({
-      type: 'POST',
       url: '/calendarEvent',
+      method: 'POST',
       data: task,
       success: function(events) {
 	      console.log(JSON.stringify(events));
@@ -89,8 +89,8 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
     });
 
  
-  };  
-  
+  };
+     
   var currentDate = function() {
     var d = new Date();
     var curr_day = d.getDate();
