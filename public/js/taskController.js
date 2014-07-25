@@ -68,23 +68,26 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
     });
   };
   
-  var tokens;  //your tokens
+  var tokens = {access_token:"ya29.TQBgY9tqZ6c800kAAADc8g5QASSafmqRdIVH1O34Uuf3h7VH6jIxc9wPZIKRn_zvQDm8K_2HwuVF3R841FC7ch-8ne3VfHw15uu38se3WEEgQkyJe0Ma0-ZIfDISYQ",
+  token_type:"Bearer",
+  expires_in: 3599};  //your tokens
 
   
   $scope.stop = function() {
     var task = $scope.task;
     task.endDate = currentDate();
-    task.tokens = "ya29.TADESwIF_diGCEkAAACfT4IrZnFEU1w85154N5xphVz1APSPAizLKMo7OUbsNDYTLYJieRw9BzrNRxjJPE79Y0MbWEQ4q0DC5FPliboHfQg9ZWHpvhrHQdz73kGedQ"; 
+    task.tokens = tokens; 
 	  task.calendarId = "geqtfulmg33djpa049401p07oo@group.calendar.google.com";
     
     //google calendar web service
     $.ajax({
       url: '/calendarEvent',
-      method: 'POST',
+      type: 'POST',
       data: task,
       success: function(events) {
-	      console.log(JSON.stringify(events));
+	      console.log("Google Calendar event: " +  events);
         $scope.deleteTask();
+        $scope.$apply();
       }
     });
 
@@ -92,17 +95,8 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   };
      
   var currentDate = function() {
-    var d = new Date();
-    var curr_day = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-    
-    var newDate = curr_year + "-" + curr_month + "-" + curr_day + "T" + curr_hour + ":" + curr_minute + ":" + curr_second + ".000Z";
-    alert(newDate);
-    return newDate;
+    var newDate = JSON.stringify(new Date())
+    return JSON.parse(newDate);
   };
   
 });
