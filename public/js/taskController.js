@@ -29,11 +29,11 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
   });
   
   $scope.start = function() {
+    
     $.ajax({
       url: "/wp-content/plugins/task_service_plugin/taskService.php",
       method: "POST",
-      data: { 
-        
+      data: {     
         task: {
           post_title: $scope.taskName,
           post_type: 'task',
@@ -52,9 +52,11 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
       }
       
     });
+    
   };
   
   $scope.deleteTask = function() {
+    
     $.ajax({
       url: "/wp-content/plugins/task_service_plugin/taskService.php?task_id="  +  $scope.task.id,
       method: "DELETE",
@@ -66,18 +68,19 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
       }
       
     });
+    
   };
   
-  var tokens = {access_token:"ya29.TQBgY9tqZ6c800kAAADc8g5QASSafmqRdIVH1O34Uuf3h7VH6jIxc9wPZIKRn_zvQDm8K_2HwuVF3R841FC7ch-8ne3VfHw15uu38se3WEEgQkyJe0Ma0-ZIfDISYQ",
-  token_type:"Bearer",
-  expires_in: 3599};  //your tokens
+  var tokens = { access_token:"your_access_token",
+                 token_type:"Bearer",
+                 expires_in: 3599
+  };  
 
-  
   $scope.stop = function() {
     var task = $scope.task;
     task.endDate = currentDate();
     task.tokens = tokens; 
-	  task.calendarId = "geqtfulmg33djpa049401p07oo@group.calendar.google.com";
+	  task.calendarId = "your_google_calendar_id";
     
     //google calendar web service
     $.ajax({
@@ -90,7 +93,6 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
         $scope.$apply();
       }
     });
-
  
   };
      
