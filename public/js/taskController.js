@@ -1,4 +1,4 @@
-angular.module("TaskManager").controller("taskController", function($scope, $location) {
+angular.module("taskManager").controller("taskController", function($scope, $location) {
   $scope.task = null;
 
   function redirectToPage() {
@@ -14,26 +14,28 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
     url: "/wp-content/plugins/task_service_plugin/taskService.php",
     method: "GET",
     success: function(data) {
-      var task = JSON.parse(data);
-      if (task.taskName) {
-        $scope.task = task;
-        console.log(task);
-      }
-      else {
-        $scope.task = null;
-      }  
-      redirectToPage();    
-      $scope.$apply();
+      if(data) {
+		    var task = JSON.parse(data);
+		    if (task.taskName) {
+		      $scope.task = task;
+		      console.log(task);
+		    }
+		    else {
+		      $scope.task = null;
+		    }  
+		    redirectToPage();    
+		    $scope.$apply();
+			}
     }
     
   });
   
   $scope.start = function() {
-    
     $.ajax({
       url: "/wp-content/plugins/task_service_plugin/taskService.php",
       method: "POST",
-      data: {     
+      data: { 
+        
         task: {
           post_title: $scope.taskName,
           post_type: 'task',
@@ -47,18 +49,21 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
       },
 
       success: function(data) {       
-        $location.path("/stop");
-        $scope.$apply();
+        if(data) {
+		      $location.path("/stop");
+		    }
+		    else {
+		    	window.location = "/wp-login";
+		    }
+		    $scope.$apply();
       }
       
     });
-    
   };
   
   $scope.deleteTask = function() {
-    
     $.ajax({
-      url: "/wp-content/plugins/task_service_plugin/taskService.php?task_id="  +  $scope.task.id,
+      url: "/wp-content/plugins/task_service_plugin/taskService.php?task_id=" + $scope.task.id,
       method: "DELETE",
       
       success: function(data) {       
@@ -68,19 +73,20 @@ angular.module("TaskManager").controller("taskController", function($scope, $loc
       }
       
     });
-    
   };
   
-  var tokens = { access_token:"your_access_token",
-                 token_type:"Bearer",
-                 expires_in: 3599
-  };  
+  var tokens = {
+		access_token:"ya29.UgCB0vuaDAkdcyAAAACGhieXmQYIdanoqPdSLdhqyR9qbtHxTE2SWLtgBZmmzQ",
+		token_type:"Bearer",
+		expires_in: 3599
+  };  //your tokens
 
+  
   $scope.stop = function() {
     var task = $scope.task;
     task.endDate = currentDate();
     task.tokens = tokens; 
-	  task.calendarId = "your_google_calendar_id";
+	  task.calendarId = "levon.hakopyan@gmail.com";
     
     //google calendar web service
     $.ajax({

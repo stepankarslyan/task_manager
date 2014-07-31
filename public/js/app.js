@@ -1,4 +1,4 @@
-angular.module('TaskManager', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
+angular.module('taskManager', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
   var path = templatePath;
   if (!path) path = '';
 	$routeProvider.
